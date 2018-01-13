@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="风机叶片故障检测服务">
+    <meta name="author" content="k2ops">
+    <meta name="keyword"
+          content="Bootstrap,Admin,Template,Open,Source,AngularJS,Angular,Angular2,Angular 2,Angular4,Angular 4,jQuery,CSS,HTML,RWD,Dashboard,React,React.js,Vue,Vue.js">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tag above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>风机叶片故障检测服务</title>
+
+    <!-- Icons -->
+    <link href="%PUBLIC_URL%/css/font-awesome.min.css" rel="stylesheet">
+    <link href="%PUBLIC_URL%/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Main styles for this application -->
+    <link href="%PUBLIC_URL%/css/style.css" rel="stylesheet">
+
+    <link href="%PUBLIC_URL%/css/antd14.css" rel="stylesheet">
+    <link href="%PUBLIC_URL%/css/editable.css" rel="stylesheet">
+</head>
+<script>
+// this section has to appear before loading dashboard.js
+// Select a theme.
+// uncomment on of the two themes:
+var netdataTheme = 'default'; // this is white
+var netdataDontStart = true;
+var netdataNoBootstrap = true;
+//var netdataTheme = 'slate'; // this is dark
+// Set the default netdata server.
+// on charts without a 'data-host', this one will be used.
+// the default is the server that dashboard.js is downloaded from.
+// var netdataServer = 'http://my.server:19999/';
+</script>
+
+<!--
+    Load dashboard.js
+    to host this HTML file on your web server,
+    you have to load dashboard.js from the netdata server.
+    So, pick one the two below
+    If you pick the first, set the server name/IP.
+    The second assumes you host this file on /usr/share/netdata/web
+    and that you have chown it to be owned by netdata:netdata
+-->
+<!-- <script type="text/javascript" src="http://my.server:19999/dashboard.js"></script> -->
+<script type="text/javascript" src="%PUBLIC_URL%/netdata/dashboard.js"></script>
+
+<script>
+// Set options for TV operation
+// This has to be done, after dashboard.js is loaded
+// destroy charts not shown (lowers memory on the browser)
+NETDATA.options.current.destroy_on_hide = true;
+// set this to false, to always show all dimensions
+NETDATA.options.current.eliminate_zero_dimensions = true;
+// lower the pressure on this browser
+NETDATA.options.current.concurrent_refreshes = false;
+// if the tv browser is too slow (a pi?)
+// set this to false
+NETDATA.options.current.parallel_refresher = false;
+NETDATA.options.debug.main_loop = false;
+NETDATA.options.debug.chart_errors = false;
+NETDATA.options.debug.chart_data_url = false;
+NETDATA.options.debug.dygraph = false;
+NETDATA.options.debug.focus = false;
+// always update the charts, even if focus is lost
+NETDATA.options.current.stop_updates_when_focus_is_lost = false;
+// Since you may render charts from many servers and any of them may
+// become offline for some time, the charts will break.
+// This will reload the page every RELOAD_EVERY minutes
+var RELOAD_EVERY = 5;
+setTimeout(function(){
+    location.reload();
+}, RELOAD_EVERY * 60 * 1000);
+</script>
+<!-- BODY options, add following classes to body to change options
+
+  // Header options
+  1. '.header-fixed'					- Fixed Header
+
+  // Sidebar options
+  1. '.sidebar-fixed'					- Fixed Sidebar
+  2. '.sidebar-hidden'				- Hidden Sidebar
+  3. '.sidebar-off-canvas'		- Off Canvas Sidebar
+  4. '.sidebar-minimized'			- Minimized Sidebar (Only icons)
+  5. '.sidebar-compact'			  - Compact Sidebar
+
+  // Aside options
+  1. '.aside-menu-fixed'			- Fixed Aside Menu
+  2. '.aside-menu-hidden'			- Hidden Aside Menu
+  3. '.aside-menu-off-canvas'	- Off Canvas Aside Menu
+
+  // Footer options
+  1. 'footer-fixed'						- Fixed footer
+
+-->
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+<div id="root"></div>
+<!--
+  This HTML file is a template.
+  If you open it directly in the browser, you will see an empty page.
+
+  You can add webfonts, meta tags, or analytics to this file.
+  The build step will place the bundled scripts into the <body> tag.
+
+  To begin the development, run `npm start`.
+  To create a production bundle, use `npm run build`.
+-->
+</body>
+</html>
